@@ -1,22 +1,21 @@
-fun main() {
-  // Lambda functions for temperature conversions.
-  val celsiusToFahrenheit: (Double) -> Double = { c -> (c * 9 / 5) + 32 }
-  val kelvinToCelsius: (Double) -> Double = { k -> k - 273.15 }
-  val fahrenheitToKelvin: (Double) -> Double = { f -> (f - 32) * 5 / 9 + 273.15 }
+fun main() {    
+  val amanda = Person("Amanda", 33, "play tennis", null)
+  val atiqah = Person("Atiqah", 28, "climb", amanda)
   
-  // Print the converted temperatures.
-  printFinalTemperature(27.0, "Celsius", "Fahrenheit", celsiusToFahrenheit)
-  printFinalTemperature(350.0, "Kelvin", "Celsius", kelvinToCelsius)
-  printFinalTemperature(10.0, "Fahrenheit", "Kelvin", fahrenheitToKelvin)
+  amanda.showProfile()
+  atiqah.showProfile()
 }
 
-fun printFinalTemperature(
-  initialMeasurement: Double, 
-  initialUnit: String, 
-  finalUnit: String, 
-  conversionFormula: (Double) -> Double
-) {
-  val finalMeasurement = conversionFormula(initialMeasurement)
-  val formattedFinalMeasurement = String.format("%.2f", finalMeasurement) // two decimal places
-  println("$initialMeasurement degrees $initialUnit is $formattedFinalMeasurement degrees $finalUnit.")
+class Person(val name: String, val age: Int, val hobby: String?, val referrer: Person?) {
+  fun showProfile() {
+      val referrerInfo = if (referrer != null) {
+          "Has a referrer named ${referrer.name}, who likes to ${referrer.hobby ?: "do something unspecified"}."
+      } else {
+          "Doesn't have a referrer."
+      }
+
+      val hobbyInfo = hobby?.let { "Likes to $it." } ?: "Doesn't have a hobby."
+      
+      println("Name: $name\nAge: $age\n$hobbyInfo $referrerInfo\n")
+  }
 }
