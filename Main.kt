@@ -1,31 +1,22 @@
 fun main() {
-  val child = 5
-  val adult = 28
-  val senior = 87
+  // Lambda functions for temperature conversions.
+  val celsiusToFahrenheit: (Double) -> Double = { c -> (c * 9 / 5) + 32 }
+  val kelvinToCelsius: (Double) -> Double = { k -> k - 273.15 }
+  val fahrenheitToKelvin: (Double) -> Double = { f -> (f - 32) * 5 / 9 + 273.15 }
   
-  val isMonday = true
-  
-  println("The movie ticket price for a person aged $child is \$${ticketPrice(child, isMonday)}.")
-  println("The movie ticket price for a person aged $adult is \$${ticketPrice(adult, isMonday)}.")
-  println("The movie ticket price for a person aged $senior is \$${ticketPrice(senior, isMonday)}.")
-  
-  // The movie ticket price for a person aged 5 is $15.
-// The movie ticket price for a person aged 28 is $25.
-// The movie ticket price for a person aged 87 is $20.
+  // Print the converted temperatures.
+  printFinalTemperature(27.0, "Celsius", "Fahrenheit", celsiusToFahrenheit)
+  printFinalTemperature(350.0, "Kelvin", "Celsius", kelvinToCelsius)
+  printFinalTemperature(10.0, "Fahrenheit", "Kelvin", fahrenheitToKelvin)
 }
 
-/*
-* A children's ticket price of $15 for people 12 years old or younger.
-A standard ticket price of $30 for people between 13 and 60 years old. On Mondays, discount the standard ticket price to $25 for this same age group.
-A senior ticket price of $20 for people 61 years old and older. Assume that the maximum age of a moviegoer is 100 years old.
-A -1 value to indicate that the price is invalid when a user inputs an age outside of the age specifications.
-* */
-
-fun ticketPrice(age: Int, isMonday: Boolean): Int {
-  return when {
-      age in 0..12 -> 15
-      age in 13..60 -> if (isMonday) 25 else 30
-      age in 61..100 -> 20
-      else -> -1
-  }
+fun printFinalTemperature(
+  initialMeasurement: Double, 
+  initialUnit: String, 
+  finalUnit: String, 
+  conversionFormula: (Double) -> Double
+) {
+  val finalMeasurement = conversionFormula(initialMeasurement)
+  val formattedFinalMeasurement = String.format("%.2f", finalMeasurement) // two decimal places
+  println("$initialMeasurement degrees $initialUnit is $formattedFinalMeasurement degrees $finalUnit.")
 }
