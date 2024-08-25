@@ -1,21 +1,27 @@
-fun main() {    
-  val amanda = Person("Amanda", 33, "play tennis", null)
-  val atiqah = Person("Atiqah", 28, "climb", amanda)
+/*
+Typically in an auction, the highest bidder determines the price of an item. 
+In this special auction, if there's no bidder for an item, 
+the item is automatically sold to the auction house at the minimum price.
+
+In the initial code provided in the following code snippet, 
+you're given an auctionPrice() function that accepts a nullable Bid? 
+type as an argument.
+
+Complete the auctionPrice() function so that the program prints these lines:
+
+Item A is sold at 5000.
+Item B is sold at 3000.
+*/
+
+fun main() {
+  val winningBid = Bid(5000, "Private Collector")
   
-  amanda.showProfile()
-  atiqah.showProfile()
+  println("Item A is sold at ${auctionPrice(winningBid, 2000)}.")
+  println("Item B is sold at ${auctionPrice(null, 3000)}.")
 }
 
-class Person(val name: String, val age: Int, val hobby: String?, val referrer: Person?) {
-  fun showProfile() {
-      val referrerInfo = if (referrer != null) {
-          "Has a referrer named ${referrer.name}, who likes to ${referrer.hobby ?: "do something unspecified"}."
-      } else {
-          "Doesn't have a referrer."
-      }
+class Bid(val amount: Int, val bidder: String)
 
-      val hobbyInfo = hobby?.let { "Likes to $it." } ?: "Doesn't have a hobby."
-      
-      println("Name: $name\nAge: $age\n$hobbyInfo $referrerInfo\n")
-  }
+fun auctionPrice(bid: Bid?, minimumPrice: Int): Int {
+  return bid?.amount?.takeIf { it >= minimumPrice } ?: minimumPrice
 }
