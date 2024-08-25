@@ -1,27 +1,11 @@
-/*
-Typically in an auction, the highest bidder determines the price of an item. 
-In this special auction, if there's no bidder for an item, 
-the item is automatically sold to the auction house at the minimum price.
-
-In the initial code provided in the following code snippet, 
-you're given an auctionPrice() function that accepts a nullable Bid? 
-type as an argument.
-
-Complete the auctionPrice() function so that the program prints these lines:
-
-Item A is sold at 5000.
-Item B is sold at 3000.
-*/
+// sum of input digit
+// eg. 476 -> 17
 
 fun main() {
-  val winningBid = Bid(5000, "Private Collector")
+  val input = 476 
   
-  println("Item A is sold at ${auctionPrice(winningBid, 2000)}.")
-  println("Item B is sold at ${auctionPrice(null, 3000)}.")
-}
-
-class Bid(val amount: Int, val bidder: String)
-
-fun auctionPrice(bid: Bid?, minimumPrice: Int): Int {
-  return bid?.amount?.takeIf { it >= minimumPrice } ?: minimumPrice
+  // Convert each character to its numeric value and sum them
+  val result = input.toString().map { it.toString().toInt() }.sum()
+  
+  println(result)
 }
